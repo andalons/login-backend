@@ -11,7 +11,7 @@ export const validationResultExpress = (req, res, next) => {
     next();
 };
 
-export const bodyRegisterValidator = [
+export const registrationValidation = [
     body("email", "Incorrect email format")
         .trim()
         .isEmail()
@@ -30,7 +30,7 @@ export const bodyRegisterValidator = [
     validationResultExpress,
 ];
 
-export const bodyLoginValidator = [
+export const loginValidation = [
     body("email", "Incorrect email format")
         .trim()
         .isEmail()
