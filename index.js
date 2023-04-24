@@ -6,7 +6,7 @@ import cors from "cors";
 
 import authRoutes from "./routes/auth.route.js";
 
-const whiteList = [process.env.ORIGIN1]; // authorized domains
+const whiteList = [process.env.ORIGIN1, process.env.ORIGIN2]; // authorized domains
 
 const app = express();
 
