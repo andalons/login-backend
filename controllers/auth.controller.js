@@ -7,19 +7,18 @@ export const register = async (req, res) =>{
         const user = new User({ email, password });
         await user.save();
 
-        // Create token with JWT
+        // Generate token with JWT
         const { token, expiresIn } = generateToken(user.id);
         generateRefreshToken(user.id, res);
         return res.status(201).json({ token, expiresIn }); 
+
     } catch (error) {
         console.log(error);
         // If email is already registered
-        if (error.code === 11000) {
+        if (error.code === 11000) 
             return res.status(400).json({ error: "This user already exists" });
-        }
         return res.status(500).json({ error: "Server error" });
     }
-
 }
 
 export const login = async (req, res) => {

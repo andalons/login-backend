@@ -15,7 +15,7 @@ export const registrationValidation = [
         .trim()
         .isEmail()
         .normalizeEmail(),
-    body("password", "Minimum of 8 characters")
+    body("password", "Password should be 8 characters minimum")
         .trim()
         .isLength({ min: 8 }),
     body("password", "Incorrect email format")
@@ -34,7 +34,7 @@ export const loginValidation = [
         .trim()
         .isEmail()
         .normalizeEmail(),
-    body("password", "Minimum of 8 characters")
+    body("password", "Password should be 8 characters minimum")
         .trim()
         .isLength({ min: 8 }),
     validationResultExpress,

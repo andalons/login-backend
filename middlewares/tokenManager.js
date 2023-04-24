@@ -20,7 +20,7 @@ export const generateRefreshToken = (uid, res) => {
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: !(process.env.MODE === "developer"),
+            secure: true,
             expires: new Date(Date.now() + expiresIn * 1000),
             sameSite: "none",
         });
@@ -35,9 +35,8 @@ export const requireToken = (req, res, next) => {
 
         if (!token) throw new Error("No Bearer");
 
-        token = token.split(" ")[1]; // add space between "Bearer" and token
+        token = token.split(" ")[1];
         const { uid } = jwt.verify(token, process.env.JWT_KEY);
-
         req.uid = uid;
 
         next();
@@ -52,11 +51,13 @@ export const requireToken = (req, res, next) => {
 export const requireRefreshToken = (req, res, next) => {
     try {
         const refreshTokenCookie = req.cookies.refreshToken;
-        if (!refreshTokenCookie) throw new Error("Token doesn't exist");
+
+        if (!refreshTokenCookie) 
+            throw new Error("Token doesn't exist");
 
         const { uid } = jwt.verify(refreshTokenCookie, process.env.JWT_REFRESH);
-
         req.uid = uid;
+        
         next();
     } catch (error) {
         console.log(error);

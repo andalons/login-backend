@@ -6,14 +6,14 @@ import cors from "cors";
 
 import authRoutes from "./routes/auth.route.js";
 
-const whiteList = [process.env.ORIGIN1]; // list of authorized domains
+const whiteList = [process.env.ORIGIN1]; // authorized domains
 
 const app = express();
 
 app.use(
     cors({
         origin: function (origin, callback) {
-            console.log(origin); // where the request is being done from
+            console.log(`Data request coming from ${origin}`); 
             if (!origin || whiteList.includes(origin)) {
                 return callback(null, origin);
             }
